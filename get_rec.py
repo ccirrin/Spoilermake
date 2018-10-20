@@ -3,8 +3,7 @@ import spotipy
 import json
 import requests
 import pandas as pd
-import get-data
-
+from get_data import *
 
 client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)

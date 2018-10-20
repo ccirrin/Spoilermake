@@ -74,5 +74,3 @@ def get_tracks_info(tracks):
         i += 1
     return(df)
 
-get_tracks_info(get_tracks(uri)).to_csv('test.csv')
-sp.recommendations(target_danceability=0.5)
