@@ -57,7 +57,7 @@ def get_tracks_info(tracks):
         df.loc[i, 'song uri'] = track['uri']
         df.loc[i, 'artist'] = track['artists'][0]['name']
         df.loc[i, 'artist uri'] = track['artists'][0]['uri']
-        df.loc[i, 'artist genres'] = ':('
+        df.loc[i, 'artist genres'] = sp.artist(track['artists'][0]['uri'])['genres']
         df.loc[i, 'danceability'] = features[0]['danceability']
         df.loc[i, 'energy'] = features[0]['energy']
         df.loc[i, 'key'] = features[0]['key']
@@ -74,5 +74,5 @@ def get_tracks_info(tracks):
         i += 1
     return(df)
 
-print(get_tracks_info(get_tracks(uri)))
+get_tracks_info(get_tracks(uri)).to_csv('test.csv')
 
