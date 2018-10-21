@@ -179,7 +179,7 @@ def getSeedTracks(df):
 
 def rec_list(df):
     recs = getRecommendationsPlaylist(df,10)
-    reclist = []
+    reclist = ''
     for item in recs['tracks']:
-    	reclist.append(item['name'] + ' - ' + item['artists'][0]['name'])
+    	reclist = reclist = item['name'] + ' - ' + item['artists'][0]['name'] + ", "
     return(reclist)
