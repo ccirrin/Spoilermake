@@ -8,6 +8,7 @@
 
 body {
     background-color: var(--main-bg);
+    background-image: url('/static/e.jpg');
     position: fixed;
     top: 0;
     left: 0;
@@ -56,6 +57,7 @@ li a {
 /*changes background color on hover*/
 li a:hover {
     filter: brightness(150%);
+     border: 1px solid white;
 }
 
 /*makes button text be normal instead of blue underlined link*/
@@ -76,12 +78,29 @@ li a:visited
 .active {
     background-color: rgba(0, 0, 0, .9);
 }
-
+/*.dtitle
+{
+    position: absolute;
+     top: 10%;
+    left: 50%;
+     transform: translate(-50%, -50%);
+    
+}
+h1
+{
+    color: white;
+    text-transform: uppercase;
+    font-size: 80px;
+    text-align: center;
+    margin-top: 275px;
+    
+}
+*/
 /********************************************************
 ******************FORM DECORATION************************
 ********************************************************/
 form {
-    height: 30vh;
+    height: 24vh;
     width: 24vw;
     padding: 6vh 2vw 2vh 2vw;
     font-size: 1em;
@@ -94,6 +113,7 @@ form {
     transform: translate(-50%, -50%);
     border-radius: 10px;
 }
+
 
 .graphcontainer {
   margin-top: 20vh;
