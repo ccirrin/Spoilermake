@@ -11,8 +11,7 @@ client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 sp.trace=False
 
-def getRecommendationsPlaylist(csvName, numOfRecs):
-    df = pd.read_csv(csvName)
+def getRecommendationsPlaylist(df, numOfRecs):
 
     maxDance = [df['danceability'].max()]
     targetDance = [df['danceability'].mean()]
@@ -149,7 +148,7 @@ def getSeedGenres(df):
     seedGenres = df['artist genres']
     seedGenresStr=""
     for x in range(0, len(seedGenres)):
-            tempList = ast.literal_eval(seedGenres[x])
+            tempList = eval(str(seedGenres[x]))
             for y in range(0, len(tempList)):
                 if x == 0 and y == 0:
                     seedGenresStr += tempList[y].replace(" ", "-")
@@ -177,3 +176,10 @@ def getSeedTracks(df):
     for x in range(1, len(seedTracks)):
         seedTracksStr += ("," + seedTracks[x])
     return seedTracksStr
+
+def rec_list(df):
+    recs = getRecommendationsPlaylist(df,10)
+    reclist = []
+    for item in recs['tracks']:
+    	reclist.append(item['name'] + ' - ' + item['artists'][0]['name'])
+    return(reclist)
