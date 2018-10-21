@@ -16,8 +16,9 @@
 	</div>
 	{% else %}
   <div class="recommendations">
-    {{ tracklist }}
-    TESTESTTEST
+    {% for reco in tracklist %}
+    {{ reco }} <br /><br />
+    {% endfor %}
   </div>
   {% endif %}
 </div>

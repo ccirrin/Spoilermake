@@ -122,12 +122,12 @@ def compare():
 
             labels = ['Danceability', 'Energy', 'Speechiness', 'Acousticness',
             'Instrumentalness', 'Liveness', 'Valence']
-            values = [[dataframe['danceability'].mean(), dataframe2['danceability'].mean()], 
+            values = [[dataframe['danceability'].mean(), dataframe2['danceability'].mean()],
             [dataframe['energy'].mean(), dataframe2['energy'].mean()],
-            [dataframe['speechiness'].mean(), dataframe2['speechiness'].mean()], 
-            [dataframe['acousticness'].mean(), dataframe2['acousticness'].mean()], 
+            [dataframe['speechiness'].mean(), dataframe2['speechiness'].mean()],
+            [dataframe['acousticness'].mean(), dataframe2['acousticness'].mean()],
             [dataframe['instrumentalness'].mean(), dataframe2['instrumentalness'].mean()],
-            [dataframe['liveness'].mean(), dataframe2['liveness'].mean()], 
+            [dataframe['liveness'].mean(), dataframe2['liveness'].mean()],
             [dataframe['valence'].mean(), dataframe2['valence'].mean()]]
             title = ""
 
