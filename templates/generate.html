@@ -1,11 +1,25 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block page_content %}
-<link rel = "stylesheet" href = "{{url_for('static', filename='style.css')}}">
+<head>
+    <meta charset="utf-8" />
+    <link rel = "stylesheet" href = "{{url_for('static', filename='style.css')}}">
+</head>
 <body>
     <!-- NAVIGATION BAR -->
     <nav id="navMenu"></nav>
     <script src="{{url_for('static', filename='navigate.js')}}"></script>
-<div class = "everything">
+<div>
+  {% if uri == None %}
+	<div class="form">
+		{{ wtf.quick_form(form) }}
+	</div>
+	{% else %}
+  <div class="recommendations">
+    {{ tracklist }}
+    TESTESTTEST
+  </div>
+  {% endif %}
 </div>
 </body>
 {% endblock %}

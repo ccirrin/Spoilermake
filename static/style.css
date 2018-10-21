@@ -84,7 +84,7 @@ li a:visited
      top: 10%;
     left: 50%;
      transform: translate(-50%, -50%);
-    
+
 }
 h1
 {
@@ -93,7 +93,7 @@ h1
     font-size: 80px;
     text-align: center;
     margin-top: 275px;
-    
+
 }
 */
 /********************************************************
@@ -130,4 +130,15 @@ form {
 .graphtitle {
   text-align: center;
   font-size: 1.6vw;
+}
+
+.recommendations {
+  margin-top: 20vh;
+  margin-left: 20vw;
+  width: 52vw;
+  height: 64vh;
+  border: .1vw solid black;
+  text-align: center;
+  font-size: 3vw;
+  background-color: white;
 }

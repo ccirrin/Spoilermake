@@ -6,6 +6,7 @@ from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import Required, AnyOf
 from flask_navigation import Navigation
 from get_data import *
+from get_rec import *
 import pandas as pd
 import math
 
@@ -18,7 +19,7 @@ app.config['SECRET_KEY'] = 'reallyreallyreallysecretkey'
 
 
 class analyze_form(FlaskForm):
-    uri = StringField(u'URI: ', validators=[Required()])
+    uri = StringField(u'Spotify URI: ', validators=[Required()])
     submit = SubmitField(u'Submit')
 
 @app.route('/', methods=['GET', 'POST'])
@@ -83,7 +84,14 @@ def analyze():
 
 @app.route('/generate', methods=['GET', 'POST'])
 def generate():
-    return render_template('generate.html')
+    form = analyze_form()
+    uri = None
+    if form.validate_on_submit():
+        uri = form.uri.data
+        dataframe = get_tracks_info(get_tracks(uri))
+        tracklist = rec_list(dataframe)
+        return render_template('generate.html', form=form, uri=uri, tracklist=tracklist)
+    return render_template('generate.html', form=form, uri=uri)
 
 @app.route('/environment', methods=['GET', 'POST'])
 def environment():
