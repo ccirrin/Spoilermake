@@ -11,7 +11,7 @@ client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 sp.trace=False
 
-def getRecommendations(csvName, numOfRecs):
+def getRecommendationsPlaylist(csvName, numOfRecs):
     df = pd.read_csv(csvName)
 
     maxDance = [df['danceability'].max()]
@@ -54,10 +54,41 @@ def getRecommendations(csvName, numOfRecs):
     seedTracks=getSeedTracks(df)
     seedArtists=getSeedArtists(df)
 
-    #using the data from the playlist, determine 5 recommended songs
     listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], seed_tracks=[seedTracks], limit=numOfRecs, country=None, min_acousticness=minAcoustic, max_acousticness=maxAcoustic, target_acousticness=targetAcoustic, min_danceability=minDance, max_danceability=maxDance, target_danceability=targetDance, min_energy=minEnergy, max_energy=maxEnergy, target_energy=targetEnergy, min_instrumentalness=minInstrument, max_instrumentalness=maxInstrument, target_instrumentalness=targetInstrument, min_liveness=minLive, max_liveness=maxLive, target_liveness=targetLive, min_loudness=minLoud, max_loudness=maxLoud, target_loudness=targetLoud, min_speechiness=minSpeech, max_speechiness=maxSpeech, target_speechiness=targetSpeech, min_tempo=minTempo, max_tempo=maxTempo, target_tempo=targetTempo, min_valence=minValence, max_valence=maxValence, target_valence=targetValence)
 
     return listOfRecs
+
+def getRecommendationsAlbum(csvName, numOfRecs):
+    return getRecommendationsPlaylist(csvName, numOfRecs)
+
+def getRecommendationsSong(csvName, numOfRecs):
+    df = pd.read_csv(csvName)
+
+    targetDance = [df['danceability'].mean()]
+    targetEnergy = [df['energy'].mean()]
+    targetAcoustic = [df['acousticness'].mean()]
+    targetInstrument = [df['instrumentalness'].mean()]
+    targetLive = [df['liveness'].mean()]
+    targetLoud = [df['loudness'].mean()]
+    targetSpeech = [df['speechiness'].mean()]
+    targetTempo = [df['tempo'].mean()]
+    targetValence = [df['valence'].mean()]
+    seedGenres=getSeedGenres(df)
+    seedTracks=getSeedTracks(df)
+    seedArtists=getSeedArtists(df)
+
+    listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], seed_tracks=[seedTracks], limit=numOfRecs, country=None, target_danceability=targetDance, target_energy=targetEnergy, target_acousticness=targetAcoustic, target_instrumentalness=targetInstrument, target_liveness=targetLive, target_loudness=targetLoud, target_speechiness=targetSpeech, target_tempo=targetTempo, target_valence=targetValence)
+    return listOfRecs
+
+def getRecommendationsArtist(csvName, numOfRecs):
+    df = pd.read_csv(csvName)
+
+    seedGenres=getSeedGenres(df)
+    seedArtists=getSeedArtists(df)
+
+    listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], limit=numOfRecs)
+    return listOfRecs
+
 
 def getDanceability(df):
     maxDance = [df['danceability'].max()]
