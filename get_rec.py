@@ -11,74 +11,169 @@ client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 sp.trace=False
 
-df = pd.read_csv("test.csv")
+def getRecommendationsPlaylist(csvName, numOfRecs):
+    df = pd.read_csv(csvName)
 
-#read from spreadsheet to determine the common the max, min, and average (target) for each attribute in the playlist
-maxDance = [df['danceability'].max()]
-targetDance = [df['danceability'].mean()]
-minDance = [df['danceability'].min()]
+    maxDance = [df['danceability'].max()]
+    targetDance = [df['danceability'].mean()]
+    minDance = [df['danceability'].min()]
 
-maxEnergy = [df['energy'].max()]
-targetEnergy = [df['energy'].mean()]
-minEnergy = [df['energy'].min()]
+    maxEnergy = [df['energy'].max()]
+    targetEnergy = [df['energy'].mean()]
+    minEnergy = [df['energy'].min()]
 
-maxAcoustic = [df['acousticness'].max()]
-targetAcoustic = [df['acousticness'].mean()]
-minAcoustic = [df['acousticness'].min()]
+    maxAcoustic = [df['acousticness'].max()]
+    targetAcoustic = [df['acousticness'].mean()]
+    minAcoustic = [df['acousticness'].min()]
 
-maxInstrument = [df['instrumentalness'].max()]
-targetInstrument = [df['instrumentalness'].mean()]
-minInstrument = [df['acousticness'].min()]
+    maxInstrument = [df['instrumentalness'].max()]
+    targetInstrument = [df['instrumentalness'].mean()]
+    minInstrument = [df['acousticness'].min()]
 
-maxLive = [df['liveness'].max()]
-targetLive = [df['liveness'].mean()]
-minLive = [df['liveness'].min()]
+    maxLive = [df['liveness'].max()]
+    targetLive = [df['liveness'].mean()]
+    minLive = [df['liveness'].min()]
 
-maxLoud = [df['loudness'].max()]
-targetLoud = [df['loudness'].mean()]
-minLoud = [df['loudness'].min()]
+    maxLoud = [df['loudness'].max()]
+    targetLoud = [df['loudness'].mean()]
+    minLoud = [df['loudness'].min()]
 
-maxSpeech = [df['speechiness'].max()]
-targetSpeech = [df['speechiness'].mean()]
-minSpeech = [df['speechiness'].min()]
+    maxSpeech = [df['speechiness'].max()]
+    targetSpeech = [df['speechiness'].mean()]
+    minSpeech = [df['speechiness'].min()]
 
-maxTempo = [df['tempo'].max()]
-targetTempo = [df['tempo'].mean()]
-minTempo = [df['tempo'].min()]
+    maxTempo = [df['tempo'].max()]
+    targetTempo = [df['tempo'].mean()]
+    minTempo = [df['tempo'].min()]
 
-maxValence = [df['valence'].max()]
-targetValence = [df['valence'].mean()]
-minValence = [df['valence'].min()]
+    maxValence = [df['valence'].max()]
+    targetValence = [df['valence'].mean()]
+    minValence = [df['valence'].min()]
 
-#determine the two most common genres amongst the playlist
-seedGenres = df['artist genres']
-seedGenresStr=""
-for x in range(0, len(seedGenres)):
-        tempList = ast.literal_eval(seedGenres[x])
-        for y in range(0, len(tempList)):
-            if x == 0 and y == 0:
-                seedGenresStr += tempList[y].replace(" ", "-")
-            else:
-                seedGenresStr += "," + tempList[y].replace(" ", "-")
-seedGenresList = seedGenresStr.split(",")
-c = Counter(seedGenresList)
-seedGenresListMC = c.most_common(2)
-seedGenresMCStr = seedGenresListMC[0][0] + "," + seedGenresListMC[1][0]
+    seedGenres=getSeedGenres(df)
+    seedTracks=getSeedTracks(df)
+    seedArtists=getSeedArtists(df)
 
-#convert artists list into a string for the get request to Spotify
-seedArtists = df['artist uri']
-seedArtistsStr = seedArtists[0]
-for x in range(1, len(seedArtists)):
-    seedArtistsStr += ("," + seedArtists[x])
+    listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], seed_tracks=[seedTracks], limit=numOfRecs, country=None, min_acousticness=minAcoustic, max_acousticness=maxAcoustic, target_acousticness=targetAcoustic, min_danceability=minDance, max_danceability=maxDance, target_danceability=targetDance, min_energy=minEnergy, max_energy=maxEnergy, target_energy=targetEnergy, min_instrumentalness=minInstrument, max_instrumentalness=maxInstrument, target_instrumentalness=targetInstrument, min_liveness=minLive, max_liveness=maxLive, target_liveness=targetLive, min_loudness=minLoud, max_loudness=maxLoud, target_loudness=targetLoud, min_speechiness=minSpeech, max_speechiness=maxSpeech, target_speechiness=targetSpeech, min_tempo=minTempo, max_tempo=maxTempo, target_tempo=targetTempo, min_valence=minValence, max_valence=maxValence, target_valence=targetValence)
 
-#convert tracks list into a string for the get request to Spotify
-seedTracks = df['song uri']
-seedTracksStr = seedTracks[0]
-for x in range(1, len(seedTracks)):
-    seedTracksStr += ("," + seedTracks[x])
+    return listOfRecs
 
-#using the data from the playlist, determine 5 recommended songs
-listOfRecs = sp.recommendations(seed_artists=[seedArtistsStr], seed_genres=[seedGenresMCStr], seed_tracks=[seedTracksStr], limit=5, country=None, min_acousticness=minAcoustic, max_acousticness=maxAcoustic, target_acousticness=targetAcoustic, min_danceability=minDance, max_danceability=maxDance, target_danceability=targetDance, min_energy=minEnergy, max_energy=maxEnergy, target_energy=targetEnergy, min_instrumentalness=minInstrument, max_instrumentalness=maxInstrument, target_instrumentalness=targetInstrument, min_liveness=minLive, max_liveness=maxLive, target_liveness=targetLive, min_loudness=minLoud, max_loudness=maxLoud, target_loudness=targetLoud, min_speechiness=minSpeech, max_speechiness=maxSpeech, target_speechiness=targetSpeech, min_tempo=minTempo, max_tempo=maxTempo, target_tempo=targetTempo, min_valence=minValence, max_valence=maxValence, target_valence=targetValence)
+def getRecommendationsAlbum(csvName, numOfRecs):
+    return getRecommendationsPlaylist(csvName, numOfRecs)
 
-#print the 5 recommended songs based on the playlist
-print(get_track_names(listOfRecs['tracks']))
+def getRecommendationsSong(csvName, numOfRecs):
+    df = pd.read_csv(csvName)
+
+    targetDance = [df['danceability'].mean()]
+    targetEnergy = [df['energy'].mean()]
+    targetAcoustic = [df['acousticness'].mean()]
+    targetInstrument = [df['instrumentalness'].mean()]
+    targetLive = [df['liveness'].mean()]
+    targetLoud = [df['loudness'].mean()]
+    targetSpeech = [df['speechiness'].mean()]
+    targetTempo = [df['tempo'].mean()]
+    targetValence = [df['valence'].mean()]
+    seedGenres=getSeedGenres(df)
+    seedTracks=getSeedTracks(df)
+    seedArtists=getSeedArtists(df)
+
+    listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], seed_tracks=[seedTracks], limit=numOfRecs, country=None, target_danceability=targetDance, target_energy=targetEnergy, target_acousticness=targetAcoustic, target_instrumentalness=targetInstrument, target_liveness=targetLive, target_loudness=targetLoud, target_speechiness=targetSpeech, target_tempo=targetTempo, target_valence=targetValence)
+    return listOfRecs
+
+def getRecommendationsArtist(csvName, numOfRecs):
+    df = pd.read_csv(csvName)
+
+    seedGenres=getSeedGenres(df)
+    seedArtists=getSeedArtists(df)
+
+    listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], limit=numOfRecs)
+    return listOfRecs
+
+
+def getDanceability(df):
+    maxDance = [df['danceability'].max()]
+    targetDance = [df['danceability'].mean()]
+    minDance = [df['danceability'].min()]
+    return tuple(maxDance, minDance, targetDance)
+
+def getEnergy(df):
+    maxEnergy = [df['energy'].max()]
+    targetEnergy = [df['energy'].mean()]
+    minEnergy = [df['energy'].min()]
+    return tuple(maxEnergy, minEnergy, targetEnergy)
+
+def getAcousticness(df):
+    maxAcoustic = [df['acousticness'].max()]
+    targetAcoustic = [df['acousticness'].mean()]
+    minAcoustic = [df['acousticness'].min()]
+    return tuple(maxAcoustic, minAcoustic, targetAcoustic)
+
+def getInstrumentalness(df):
+    maxInstrument = [df['instrumentalness'].max()]
+    targetInstrument = [df['instrumentalness'].mean()]
+    minInstrument = [df['acousticness'].min()]
+    return tuple(maxInstrument, minInstrument, targetInstrument)
+
+def getLiveness(df):
+    maxLive = [df['liveness'].max()]
+    targetLive = [df['liveness'].mean()]
+    minLive = [df['liveness'].min()]
+    return tuple(maxLive, minLive, targetLive)
+
+def getLoudness(df):
+    maxLoud = [df['loudness'].max()]
+    targetLoud = [df['loudness'].mean()]
+    minLoud = [df['loudness'].min()]
+    return tuple(maxLoud, minLoud, targetLoud)
+
+def getSpeechiness(df):
+    maxSpeech = [df['speechiness'].max()]
+    targetSpeech = [df['speechiness'].mean()]
+    minSpeech = [df['speechiness'].min()]
+    return tuple(maxSpeech, minSpeech, targetSpeech)
+
+def getTempo(df):
+    maxTempo = [df['tempo'].max()]
+    targetTempo = [df['tempo'].mean()]
+    minTempo = [df['tempo'].min()]
+    return tuple(maxTempo, minTempo, targetTempo)
+
+def getValence(df):
+    maxValence = [df['valence'].max()]
+    targetValence = [df['valence'].mean()]
+    minValence = [df['valence'].min()]
+    return tuple(maxValence, minValence, targetValence)
+
+def getSeedGenres(df):
+    #determine the two most common genres amongst the playlist
+    seedGenres = df['artist genres']
+    seedGenresStr=""
+    for x in range(0, len(seedGenres)):
+            tempList = ast.literal_eval(seedGenres[x])
+            for y in range(0, len(tempList)):
+                if x == 0 and y == 0:
+                    seedGenresStr += tempList[y].replace(" ", "-")
+                else:
+                    seedGenresStr += "," + tempList[y].replace(" ", "-")
+    seedGenresList = seedGenresStr.split(",")
+    c = Counter(seedGenresList)
+    seedGenresListMC = c.most_common(2)
+    seedGenresMCStr = seedGenresListMC[0][0] + "," + seedGenresListMC[1][0]
+    return seedGenresMCStr
+
+def getSeedArtists(df):
+    #convert artists list into a string for the get request to Spotify
+    seedArtists = df['artist uri']
+    seedArtistsStr = seedArtists[0]
+    for x in range(1, len(seedArtists)):
+        seedArtistsStr += ("," + seedArtists[x])
+    return seedArtistsStr
+
+
+def getSeedTracks(df):
+    #convert tracks list into a string for the get request to Spotify
+    seedTracks = df['song uri']
+    seedTracksStr = seedTracks[0]
+    for x in range(1, len(seedTracks)):
+        seedTracksStr += ("," + seedTracks[x])
+    return seedTracksStr
