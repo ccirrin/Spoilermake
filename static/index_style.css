@@ -7,7 +7,7 @@
 }
 
 body {
-  background-image: url('/static/boilermake.jpg');
+  background-image: url('/static/e.jpg');
   height: 100%;
   min-width: 20em;
 }
@@ -50,6 +50,7 @@ li a {
 /*changes background color on hover*/
 li a:hover {
     filter: brightness(150%);
+     border: 1px solid white;
 }
 
 /*makes button text be normal instead of blue underlined link*/
@@ -72,7 +73,7 @@ li a:visited
 }
 
 #namecontainer {
-  background-color: rgba(33, 2, 20, .75);
+  background-color: rgba(33, 2, 20, .5);
   height: 24vw;
   width: 36vw;
   min-width: 30em;
