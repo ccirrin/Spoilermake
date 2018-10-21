@@ -8,6 +8,9 @@ client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 uri = 'spotify:user:9mtj6p9tgugxw8r33lmd5ef1k:playlist:5zmZ6CrKifQOtx6wJGhOG9'
+album_uri = 'spotify:album:27ftYHLeunzcSzb33Wk1hf'
+song_uri = 'spotify:track:7lEptt4wbM0yJTvSG5EBof'
+artist_uri = 'spotify:artist:3mvkWMe6swnknwscwvGCHO'
 
 #uri is the uri of the playlist you wish to analyze
 def get_tracks(uri):
@@ -15,6 +18,12 @@ def get_tracks(uri):
     username = uri.split(':')[2]
     playlist_id = uri.split(':')[4]
     results = sp.user_playlist_tracks(username, playlist_id)
+    for item in results['items']:
+        tracks.append(item['track'])
+    return(tracks)
+
+def get__tracks(results):
+    tracks = []
     for item in results['items']:
         tracks.append(item['track'])
     return(tracks)
@@ -73,4 +82,32 @@ def get_tracks_info(tracks):
         df.loc[i, 'time_signature'] = features[0]['time_signature']
         i += 1
     return(df)
+
+def detect_type(uri):
+    uri = uri.split(':')
+    if len(uri) == 5:
+        return('playlist')
+    return(uri[1])
+
+
+def analyze(uri):
+    spot_type = detect_type(uri)
+    if spot_type == 'artist':
+        return(sp.artist(uri))
+    elif spot_type =='track':
+        return(get_tracks_info([sp.track(uri)]))
+    elif spot_type == 'album':
+        album = sp.album_tracks(uri)
+        tracks = []
+        for item in album['items']:
+            tracks.append(sp.track(item['uri']))
+        return(get_tracks_info(tracks))
+    else:
+        return(get_tracks_info(get_tracks(uri)))
+
+
+
+
+print(analyze(uri))
+
 
