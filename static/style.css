@@ -106,7 +106,7 @@ form {
     font-size: 1em;
     text-decoration: none;
     color: var(--form-text);
-    background-color: var(--form-bg);
+    background-color: rgba(33, 2, 20, .5);;
     position: absolute;
     top: 50%;
     left: 50%;
