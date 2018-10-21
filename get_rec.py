@@ -11,7 +11,7 @@ client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 sp.trace=False
 
-def getRecommendations(csvName):
+def getRecommendations(csvName, numOfRecs):
     df = pd.read_csv(csvName)
 
     maxDance = [df['danceability'].max()]
@@ -55,7 +55,7 @@ def getRecommendations(csvName):
     seedArtists=getSeedArtists(df)
 
     #using the data from the playlist, determine 5 recommended songs
-    listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], seed_tracks=[seedTracks], limit=5, country=None, min_acousticness=minAcoustic, max_acousticness=maxAcoustic, target_acousticness=targetAcoustic, min_danceability=minDance, max_danceability=maxDance, target_danceability=targetDance, min_energy=minEnergy, max_energy=maxEnergy, target_energy=targetEnergy, min_instrumentalness=minInstrument, max_instrumentalness=maxInstrument, target_instrumentalness=targetInstrument, min_liveness=minLive, max_liveness=maxLive, target_liveness=targetLive, min_loudness=minLoud, max_loudness=maxLoud, target_loudness=targetLoud, min_speechiness=minSpeech, max_speechiness=maxSpeech, target_speechiness=targetSpeech, min_tempo=minTempo, max_tempo=maxTempo, target_tempo=targetTempo, min_valence=minValence, max_valence=maxValence, target_valence=targetValence)
+    listOfRecs = sp.recommendations(seed_artists=[seedArtists], seed_genres=[seedGenres], seed_tracks=[seedTracks], limit=numOfRecs, country=None, min_acousticness=minAcoustic, max_acousticness=maxAcoustic, target_acousticness=targetAcoustic, min_danceability=minDance, max_danceability=maxDance, target_danceability=targetDance, min_energy=minEnergy, max_energy=maxEnergy, target_energy=targetEnergy, min_instrumentalness=minInstrument, max_instrumentalness=maxInstrument, target_instrumentalness=targetInstrument, min_liveness=minLive, max_liveness=maxLive, target_liveness=targetLive, min_loudness=minLoud, max_loudness=maxLoud, target_loudness=targetLoud, min_speechiness=minSpeech, max_speechiness=maxSpeech, target_speechiness=targetSpeech, min_tempo=minTempo, max_tempo=maxTempo, target_tempo=targetTempo, min_valence=minValence, max_valence=maxValence, target_valence=targetValence)
 
     return listOfRecs
 
