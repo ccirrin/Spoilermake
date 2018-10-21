@@ -1,0 +1,119 @@
+:root {
+  --nav-bg: #210214;
+  --form-bg: #750D37;
+  --nav-text: #B3DEC1;
+  --form-text: #E5FCF5;
+  --main-bg: #FEFFFE;
+}
+
+body {
+  background-image: url('/static/boilermake.jpg');
+  height: 100%;
+  min-width: 20em;
+}
+/********************************************************
+***********************NAV BAR***************************
+********************************************************/
+
+/*gets rid of default list look*/
+ul {
+  height: 9vh;
+	position: absolute;
+	left: 0;
+	right: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  padding-top: 1.3vh;
+  font-size: 1em;
+}
+
+li {
+    float: left;
+}
+
+/*make buttons*/
+li a {
+    display: block;
+    color: white;
+    font-family: "Helvetica",Sans-Serif;
+    font-size: 1em;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/*changes background color on hover*/
+li a:hover {
+    filter: brightness(150%);
+}
+
+/*makes button text be normal instead of blue underlined link*/
+li a:link
+{
+   color: var(--nav-text);
+   text-decoration: none;
+   font-size: 1em;
+}
+/*makes button text not change after visit*/
+li a:visited
+{
+   color: var(--nav-text);
+   text-decoration: none;
+}
+
+/*shows what page you are on*/
+.active {
+    background-color: rgba(0, 0, 0, .9);
+}
+
+/********************************************************
+******************FORM DECORATION************************
+********************************************************/
+form {
+    height: 16em;
+    width: 20em;
+    font-family: "Helvetica",Sans-Serif;
+    font-size: 1em;
+    text-decoration: none;
+    color: var(--form-text);
+    background-color: var(--form-bg);
+    padding: 20px 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    font-weight: lighter;
+}
+
+#namecontainer {
+  background-color: rgba(33, 2, 20, .75);
+  height: 27vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+#name {
+  padding: 20px;
+  text-align: center;
+  font-size: 6vw;
+  color: #B3DEC1;
+  font-weight: bolder;
+}
+
+#nametext {
+  text-align: center;
+  font-size: 2vw;
+  color: #B3DEC1;
+}
+
+
+
