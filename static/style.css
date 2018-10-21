@@ -1,12 +1,22 @@
+:root {
+  --nav-bg: #210214;
+  --form-bg: #750D37;
+  --nav-text: #B3DEC1;
+  --form-text: #E5FCF5;
+  --main-bg: #FEFFFE;
+}
+
 body {
     /*gets random image for background*/
-    background-image: url('https://picsum.photos/1920/1080');
+    background-color: var(--main-bg);
     position: fixed;
     top: 0;
     left: 0;
     min-width: 100%;
     min-height: 100%;
     overflow: hidden;
+    font-weight: lighter;
+    letter-spacing: .2em;
 }
 /********************************************************
 ***********************NAV BAR***************************
@@ -14,15 +24,19 @@ body {
 
 /*gets rid of default list look*/
 ul {
+  height: 9vh;
 	position: absolute;
 	left: 0;
 	right: 0;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, .35);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  padding-top: 1.3vh;
+  font-size: 1em;
 }
 
 li {
@@ -34,7 +48,6 @@ li a {
     display: block;
     color: white;
     font-family: "Helvetica",Sans-Serif;
-    font-weight: lighter;
     font-size: 1em;
     text-align: center;
     padding: 14px 16px;
@@ -43,19 +56,20 @@ li a {
 
 /*changes background color on hover*/
 li a:hover {
-    background-color: rgba(0, 0, 0, .6);
+    filter: brightness(150%);
 }
 
 /*makes button text be normal instead of blue underlined link*/
 li a:link
 {
-   color: #ffffff;
+   color: var(--nav-text);
    text-decoration: none;
+   font-size: 1em;
 }
 /*makes button text not change after visit*/
 li a:visited
 {
-   color: #ffffff;
+   color: var(--nav-text);
    text-decoration: none;
 }
 
@@ -68,15 +82,18 @@ li a:visited
 ******************FORM DECORATION************************
 ********************************************************/
 form {
+    height: 16em;
+    width: 20em;
     font-family: "Helvetica",Sans-Serif;
     font-size: 1em;
     text-decoration: none;
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, .35);
+    color: var(--form-text);
+    background-color: var(--form-bg);
     padding: 20px 20px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
+    font-weight: lighter;
 }
