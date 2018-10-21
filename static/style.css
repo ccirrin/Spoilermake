@@ -81,8 +81,9 @@ li a:visited
 ******************FORM DECORATION************************
 ********************************************************/
 form {
-    height: 16em;
-    width: 20em;
+    height: 30vh;
+    width: 24vw;
+    padding: 6vh 2vw 2vh 2vw;
     font-size: 1em;
     text-decoration: none;
     color: var(--form-text);
@@ -94,3 +95,19 @@ form {
     border-radius: 10px;
 }
 
+.graphcontainer {
+  margin-top: 20vh;
+  margin-left: 20vw;
+  width: 52vw;
+  height: 64vh;
+  border: .1vw solid black;
+}
+
+.graph {
+  /**/
+}
+
+.graphtitle {
+  text-align: center;
+  font-size: 1.6vw;
+}

@@ -71,29 +71,11 @@ li a:visited
     background-color: rgba(0, 0, 0, .9);
 }
 
-/********************************************************
-******************FORM DECORATION************************
-********************************************************/
-form {
-    height: 16em;
-    width: 20em;
-    font-family: "Helvetica",Sans-Serif;
-    font-size: 1em;
-    text-decoration: none;
-    color: var(--form-text);
-    background-color: var(--form-bg);
-    padding: 20px 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    font-weight: lighter;
-}
-
 #namecontainer {
   background-color: rgba(33, 2, 20, .75);
-  height: 27vw;
+  height: 24vw;
+  width: 36vw;
+  min-width: 30em;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -102,18 +84,15 @@ form {
 }
 
 #name {
-  padding: 20px;
+  padding: 2vh 2vw 2vh 2vw;
   text-align: center;
-  font-size: 6vw;
+  font-size: 3vw;
   color: #B3DEC1;
   font-weight: bolder;
 }
 
 #nametext {
   text-align: center;
-  font-size: 2vw;
+  font-size: 1.5vw;
   color: #B3DEC1;
 }
-
-
-

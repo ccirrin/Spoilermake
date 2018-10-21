@@ -1,20 +1,67 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block page_content %}
-<link rel = "stylesheet" href = "{{url_for('static', filename='style.css')}}">
+<head>
+    <meta charset="utf-8" />
+    <title>Chart.js </title>
+    <script src='static/Chart.min.js'></script>
+    <link rel = "stylesheet" href = "{{url_for('static', filename='style.css')}}">
+</head>
 <body>
     <!-- NAVIGATION BAR -->
     <nav id="navMenu"></nav>
     <script src="{{url_for('static', filename='navigate.js')}}"></script>
 
-<div class = "everything">
+<div>
 	{% if uri == None %}
 	<div class="form">
 		{{ wtf.quick_form(form) }}
 	</div>
 	{% else %}
-	<div>
-	</div>
+  <div class="graphcontainer">
+  <div class ="graphtitle">
+    Results for: {{ title }}
+  </div>
+	<div class="graph">
+    <center>
+    <canvas id="chart" width="600" height="400"></canvas>
+    <script>
+       // bar chart data
+       var barData = {
+       labels : [{% for item in labels %}
+                      "{{item}}",
+                  {% endfor %}],
+       datasets : [
+          {
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+             data : [{% for item in values %}
+                          {{item}},
+                        {% endfor %}]
+          }
+          ]
+       }
+
+       // get bar chart canvas
+      var mychart = document.getElementById("chart").getContext("2d");
+       steps = 1
+       max = 1
+       // draw bar chart
+       new Chart(mychart).Bar(barData, {
+            scaleOverride: true,
+            scaleSteps: steps,
+            scaleStepWidth: Math.ceil(max / steps),
+            scaleStartValue: 0,
+            scaleShowVerticalLines: true,
+            scaleShowGridLines : true,
+            barShowStroke : true,
+            scaleShowLabels: true
+        });
+    </script>
+  </center>
+  </div>
+</div>
 	{% endif %}
 </div>
 </body>

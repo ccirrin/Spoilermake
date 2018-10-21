@@ -90,7 +90,7 @@ def detect_type(uri):
     return(uri[1])
 
 
-def analyze(uri):
+def analyze_input(uri):
     spot_type = detect_type(uri)
     if spot_type == 'artist':
         return(sp.artist(uri))
@@ -104,10 +104,3 @@ def analyze(uri):
         return(get_tracks_info(tracks))
     else:
         return(get_tracks_info(get_tracks(uri)))
-
-
-
-
-print(analyze(uri))
-
-
