@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = 'reallyreallyreallysecretkey'
 
 class analyze_form(FlaskForm):
     uri = StringField(u'URI: ', validators=[Required()])
-    submit    = SubmitField(u'Submit')
+    submit = SubmitField(u'Submit')
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
@@ -23,10 +23,11 @@ def main():
 @app.route('/analyze', methods=['GET', 'POST'])
 def analyze():
     form=analyze_form()
+    uri = None
     if form.validate_on_submit():
         uri = form.uri.data
-        return render_template('analyze.html', form=form, uri=uri, uri_type=uri_type)
-    return render_template('analyze.html', form=form)
+        return render_template('analyze.html', form=form, uri=uri)
+    return render_template('analyze.html', form=form, uri=uri)
 
 @app.route('/generate', methods=['GET', 'POST'])
 def generate():
